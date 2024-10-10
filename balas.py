@@ -21,15 +21,18 @@ class Bala(Sprite):
         #Guarda la posición de la bala como flotante.
         #self.y = float(self.bala_rect.y)
 
-    def actualizar(self):
 
-        #Mueve la bala hacia arriba de la pantalla. 
 
-        #self.y -= 5 #self.configuracion.balas_velocidad
-        self.bala_rect.y -= 5
-
-    def draw(self):
+    def dibuja_bala(self):
         '''Dibuja la bala en la pantalla'''
 
         pygame.draw.rect(self.pantalla, self.bala_color, self.bala_rect)
 
+            
+
+    def actualiza_bala(self):
+
+        #Mueve la bala hacia arriba de la pantalla. 
+        
+        while True:
+            self.bala_rect.y -= 5

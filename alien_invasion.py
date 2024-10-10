@@ -22,11 +22,9 @@ class AlienInvasion:
         #Pantalla.
         self.pantalla = pygame.display.set_mode(
             (self.configuracion.pantalla_xancho, 
-            self.configuracion.pantalla_yalto)
-        )
+            self.configuracion.pantalla_yalto))
 
         self.pantalla_rect = self.pantalla.get_rect()
-
         pygame.display.set_caption(self.configuracion.nombre_pantalla)
 
         #Clase 'Nave'.
@@ -36,10 +34,7 @@ class AlienInvasion:
         self.fondo = Fondo(self, self.configuracion)
 
         #Grupo 'Balas'
-
         self.balas = pygame.sprite.Group()
-
-
 
 
     def run_game(self):
@@ -48,19 +43,10 @@ class AlienInvasion:
         while True:
             self._revisa_eventos()
 
-
-
             self.balas.update()
-
-            '''Elimina las bals que han salido de la pantalla.'''
-            for bala in self.balas.copy():
-                if bala.bala_rect.bottom <= 0:  # Si la bala sale por la parte superior
-                    self.balas.remove(bala)
-
 
             self._actualiza_pantalla()
             self.reloj.tick(self.configuracion.fps)
-
 
 
     def _revisa_eventos(self):
@@ -122,13 +108,14 @@ class AlienInvasion:
         self.nave.actualizar()
         
         #Dibuja las balas.
-        for balas in self.balas.sprites():
-            balas.dibuja_bala()
-
-
-
-
-
+        for bala in self.balas.sprites():
+            bala.dibuja_bala()
+        
+        for bala in self.balas.sprites():
+            if bala.bala_rect.bottom <= 0:  # Si la bala sale por la parte superior
+                self.balas.remove(bala)
+            else:
+                bala.bala_rect.y -= 10
 
 
         #Hace visible la última pantalla dibujada.
