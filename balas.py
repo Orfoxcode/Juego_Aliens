@@ -33,6 +33,10 @@ class Bala(Sprite):
     def actualiza_bala(self):
 
         #Mueve la bala hacia arriba de la pantalla. 
-        
-        while True:
-            self.bala_rect.y -= 5
+        self.bala_rect.y -= self.configuracion.bala_velocidad
+
+    def elimina_bala(self):
+
+        #Marca la bala que ha salido de la pantalla
+        if self.bala_rect.bottom == self.pantalla_rect.top:
+            return True

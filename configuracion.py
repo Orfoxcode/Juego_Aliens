@@ -34,7 +34,7 @@ class Configuracion:
 
 
         #Balas.
-        self.balas_velocidad = 4
+        self.balas_velocidad = 10
         self.balas_ancho = 3
         self.balas_alto = 15
         self.balas_color = (230,239,239)
