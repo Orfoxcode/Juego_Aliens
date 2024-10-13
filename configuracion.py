@@ -38,3 +38,16 @@ class Configuracion:
         self.balas_ancho = 3
         self.balas_alto = 15
         self.balas_color = (230,239,239)
+
+        #Asteroide
+        self.asteroide_imagen01 = "files/pics/asteroide_01.bmp"
+        self.asteroide_xvelocidad = range(-2, 2)
+        self.asteroide_yvelocidad = range(1, 2)
+        self.asteroide_xrango = range(0, self.pantalla_xancho)
+        self.asteroide_yrango = range(0, self.pantalla_yalto)
+        self.asteroide_angulo = range(0,360)
+        self.asteroide_escala = [1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2,2.5,3]
+        self.asteroide_xtamano_inicial = 50
+        self.asteroide_ytamano_inicial = 50
+
+

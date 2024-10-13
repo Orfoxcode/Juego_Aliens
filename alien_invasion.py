@@ -1,10 +1,14 @@
 import sys
 import pygame
 
+import asteroides
+import configuracion
+
 from configuracion import Configuracion
 from nave import Nave
 from fondo import Fondo
 from balas import Bala
+from asteroides import Asteroide
 
 
 class AlienInvasion:
@@ -36,16 +40,21 @@ class AlienInvasion:
         #Grupo 'Balas'
         self.balas = pygame.sprite.Group()
 
+        #Asteroide
+        self.asteroides = pygame.sprite.Group()
+
+
+
 
     def run_game(self):
         '''Inicia el bucle principal para el juego.'''
 
         while True:
             self._revisa_eventos()
-
             self.balas.update()
-
+            
             self._actualiza_pantalla()
+
             self.reloj.tick(self.configuracion.fps)
 
 
@@ -87,11 +96,23 @@ class AlienInvasion:
             self.nave.movimiento_abajo = False
 
     def _disparar_balas(self):
-
         '''Crea una nueva bala y la añade al grupo de balas'''
+
         nueva_bala = Bala(self)
         self.balas.add(nueva_bala)
 
+    def _crea_asteroide(self):
+        '''Crea un nuevo asteroide y lo añade al grupo de asteroides'''
+
+        #Dibuja un asteroide.
+
+        #nuevo_asteroide.dibuja_asteroide()
+
+        
+        if len(self.asteroides) <= 21:
+            nuevo_asteroide = Asteroide(self)
+            self.asteroides.add(nuevo_asteroide)
+            
 
     def _actualiza_pantalla(self):
             
@@ -106,7 +127,28 @@ class AlienInvasion:
         #self.nave._carga_nave()
         self.nave.dibuja_nave()
         self.nave.actualizar()
+
+
+        #Dibuja asteroide.
+        self._crea_asteroide()  
         
+        for asteroide in self.asteroides.sprites():
+            asteroide.dibuja_asteroide()
+            asteroide.actualiza_asteroide()
+            
+            if asteroide.asteroide_rect.top >= self.configuracion.pantalla_yalto:
+                self.asteroides.remove(asteroide)
+            else:
+                asteroide.asteroide_rect.y += asteroide.velocidady
+
+            #if asteroide.asteroide_rect.left <= 0 or asteroide.asteroide_rect.right >= self.configuracion.pantalla_xancho:
+            #    asteroide.asteroide_rect.x = asteroide.asteroide_rect.x * (-1)
+            
+
+        #  asteroide.asteroide_rect.y += asteroide.velocidady
+        #  asteroide.asteroide_rect.x += asteroide.velocidadx    
+
+
         #Dibuja las balas.
         for bala in self.balas.sprites():
             bala.dibuja_bala()
@@ -116,6 +158,7 @@ class AlienInvasion:
                 self.balas.remove(bala)
             else:
                 bala.bala_rect.y -= 10
+
 
 
         #Hace visible la última pantalla dibujada.
